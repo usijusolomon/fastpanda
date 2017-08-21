@@ -29,7 +29,7 @@ namespace Tea.Controllers.TestManagement
             var questionNumber = Convert.ToInt64(collectedValues["id"]);
             var rightAnswer = collectedValues["RightAnswer"];
 
-            //collect question
+            //collect questions
             var questionAnswer = collectedValues["QuestionAnswer"];
 
             //create a session to store question
