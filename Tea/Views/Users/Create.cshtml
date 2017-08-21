@@ -1,0 +1,152 @@
+﻿@using ObjectClass.Enums
+@model ObjectClass.Objects.User
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>User</h4>
+        <hr/>
+        @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserPassword, new {@class = "control-label col-md-2"})
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.UserPassword, new {htmlAttributes = new {@class = "form-control"}})
+                @Html.ValidationMessageFor(model => model.UserPassword, "", new {@class = "text-danger"})
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ConfirmPassword, new {@class = "control-label col-md-2"})
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ConfirmPassword, new {htmlAttributes = new {@class = "form-control"}})
+                @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new {@class = "text-danger"})
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserMatric, new {@class = "control-label col-md-2"})
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.UserMatric, new {htmlAttributes = new {@class = "form-control"}})
+                @Html.ValidationMessageFor(model => model.UserMatric, "", new {@class = "text-danger"})
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserFirstName, new {@class = "control-label col-md-2"})
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.UserFirstName, new {htmlAttributes = new {@class = "form-control"}})
+                @Html.ValidationMessageFor(model => model.UserFirstName, "", new {@class = "text-danger"})
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserLastName, new {@class = "control-label col-md-2"})
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.UserLastName, new {htmlAttributes = new {@class = "form-control"}})
+                @Html.ValidationMessageFor(model => model.UserLastName, "", new {@class = "text-danger"})
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserType, new {@class = "control-label col-md-2"})
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.UserType, EnumHelper.GetSelectList(typeof(UserType)), "select your title", new {@class = "form-control select-dropdown"})
+                @Html.ValidationMessageFor(model => model.UserType, "", new {@class = "text-danger"})
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FacultyId, "Faculty", new {@class = "control-label col-md-2"})
+            <div class="col-md-10">
+                @Html.DropDownList("FacultyId", null, "Select your Faculty", new {@class = "form-control select-dropdown", id = "faculty"})
+                @Html.ValidationMessageFor(model => model.FacultyId, "", new {@class = "text-danger"})
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.DepartmentId, "Department", new {@class = "control-label col-md-2"})
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.DepartmentId, new SelectList(string.Empty, "Value", "Text"), "--Please select your department--", new { @class = "form-control select-dropdown", id = "department" })
+                @Html.ValidationMessageFor(model => model.DepartmentId, "", new {@class = "text-danger"})
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LevelId, "Level", new {@class = "control-label col-md-2"})
+            <div class="col-md-10">
+                @Html.DropDownList("LevelId", null, "Select your level", new {@class = "form-control"})
+                @Html.ValidationMessageFor(model => model.LevelId, "", new {@class = "text-danger"})
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default"/>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+<script>
+
+        $(document)
+            .ready(function() {
+                //checks if the faculty has a value before displaying assigned department
+                if ($('#faculty').val() != '') {
+                    getDepartmentForFaculty();
+
+                }
+                //loads assigned department and faculty for state on change/select
+                $('#faculty').on('change', function() { getDepartmentForFaculty(); });
+
+                //Ajax call for department assigned to faculty
+                function getDepartmentForFaculty() {
+
+                    $("#department").empty();
+                    $.ajax({
+                        type: 'GET',
+                        url: '@Url.Action("GetDepartmentForFaculty", "Faculties")',
+                        dataType: 'json',
+                        data: { id: $("#faculty").val() },
+                        success: function(department) {
+
+                            $.each(department,
+                                function(i, department) {
+                                    $("#department")
+                                        .append('<option value="' +
+                                            department.DepartmentId +
+                                            '">' +
+                                            department.Name +
+                                            '</option>');
+                                });
+                        },
+                        error: function(ex) {
+                            alert('Failed to retrieve department.' + ex);
+                        }
+                    });
+
+                }
+
+                //Ajax ends
+
+
+            });
+</script>
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+}

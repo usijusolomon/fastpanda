@@ -1,0 +1,50 @@
+﻿@model ObjectClass.Objects.Answer
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Answer</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Question.AskedQuestion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Question.AskedQuestion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.QuestionAnswer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.QuestionAnswer)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RightAnswer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RightAnswer)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Label)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Label)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.AnswerId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

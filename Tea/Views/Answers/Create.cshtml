@@ -1,0 +1,130 @@
+﻿@using ObjectClass.Objects
+@model ObjectClass.Objects.Answer
+
+@{
+    ViewBag.title = "Create";
+    ViewBag.Subtitle = "Add Anwers";
+    Layout = "../Shared/_LayoutForm.cshtml";
+
+    long questionNumber = ViewBag.id;
+    //call question session
+    var question = Session["question"] as Question;
+
+    var answers = question?.Answers;
+}
+<div class="container" id="myWizard">
+
+    <h4>Answer Management</h4>
+    @*<div class="progress">
+            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="@questionCount" style="width: 20%;">
+                Question @questionCount of @questionCount
+            </div>
+        </div>*@
+
+    @*<div class="navbar">
+            <div class="navbar-inner">
+                <ul class="nav nav-pills">
+                    @if (questions != null)
+                    {
+                        foreach (var item in questions)
+                         {
+                             <li class="active">
+                                 <a href="" data-toggle="tab" data-step="1">Question @item.QuestionNumber</a>
+                             </li>
+                         }
+                    }
+                </ul>
+            </div>
+        </div>*@
+    <div class="tab-content">
+        <div class="tab-pane fade in active" id="step1">
+
+            <div class="well">
+
+                @using (Html.BeginForm("ProcessAnswers", "Answers", FormMethod.Post, new { @class = "form-horizontal" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.Hidden("id", questionNumber)
+
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.QuestionAnswer, new {@class = "control-label col-sm-2"})
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.QuestionAnswer, new {htmlAttributes = new {@class = "form-control"}})
+                                @Html.ValidationMessageFor(model => model.QuestionAnswer, "", new {@class = "text-danger"})
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.RightAnswer, new {@class = "control-label col-md-2"})
+                            <div class="col-md-10">
+                                <div class="checkbox">
+                                    @Html.EditorFor(model => model.RightAnswer)
+                                    @Html.ValidationMessageFor(model => model.RightAnswer, "", new {@class = "text-danger"})
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Create" class="btn btn-primary btn-sm"/>
+                            </div>
+                        </div>
+                    </div>
+                }
+          
+                <div>
+                    @Html.ActionLink("Back to Question", "Create", "Questions", new {id = question.TestId}, new {@class = "btn btn-default btn-sm"})
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<br/>
+<div style="font-weight: bold">
+    <label style="font-weight: normal">Asked Question</label><br/>
+    @questionNumber . @question.AskedQuestion
+</div>
+<br/>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Label)
+        </th>
+        <th>
+            @Html.DisplayName("Options")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RightAnswer)
+        </th>
+    
+        <th></th>
+    </tr>
+    @if (answers != null)
+    {
+        foreach (var item in answers.Where(n => n.QuestionNumber == questionNumber))
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Label)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.QuestionAnswer)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RightAnswer)
+                </td>
+          
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.AnswerId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.AnswerId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.AnswerId })
+                </td>
+            </tr>
+        }
+    }
+
+</table>
