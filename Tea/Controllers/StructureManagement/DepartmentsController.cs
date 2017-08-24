@@ -13,7 +13,7 @@ namespace Tea.Controllers.StructureManagement
 {
     public class DepartmentsController : Controller
     {
-        private DepartmentDataBaseConnection db = new DepartmentDataBaseConnection();
+        private FacultyDataBaseConnection db = new FacultyDataBaseConnection();
 
         // GET: Departments
         public ActionResult Index()
@@ -40,7 +40,7 @@ namespace Tea.Controllers.StructureManagement
         // GET: Departments/Create
         public ActionResult Create()
         {
-            ViewBag.FacultyId = new SelectList(db.Faculty, "FacultyId", "Name");
+            ViewBag.FacultyId = new SelectList(db.Faculties, "FacultyId", "Name");
             return View();
         }
 
@@ -58,7 +58,7 @@ namespace Tea.Controllers.StructureManagement
                 return RedirectToAction("Index");
             }
 
-            ViewBag.FacultyId = new SelectList(db.Faculty, "FacultyId", "Name", department.FacultyId);
+            ViewBag.FacultyId = new SelectList(db.Faculties, "FacultyId", "Name", department.FacultyId);
             return View(department);
         }
 
@@ -74,7 +74,7 @@ namespace Tea.Controllers.StructureManagement
             {
                 return HttpNotFound();
             }
-            ViewBag.FacultyId = new SelectList(db.Faculty, "FacultyId", "Name", department.FacultyId);
+            ViewBag.FacultyId = new SelectList(db.Faculties, "FacultyId", "Name", department.FacultyId);
             return View(department);
         }
 
@@ -91,7 +91,7 @@ namespace Tea.Controllers.StructureManagement
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.FacultyId = new SelectList(db.Faculty, "FacultyId", "Name", department.FacultyId);
+            ViewBag.FacultyId = new SelectList(db.Faculties, "FacultyId", "Name", department.FacultyId);
             return View(department);
         }
 

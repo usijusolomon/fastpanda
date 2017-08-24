@@ -13,7 +13,7 @@ namespace Tea.Controllers.StructureManagement
 {
     public class LevelsController : Controller
     {
-        private LevelDataBaseConnection db = new LevelDataBaseConnection();
+        private FacultyDataBaseConnection db = new FacultyDataBaseConnection();
 
         // GET: Levels
         public ActionResult Index()

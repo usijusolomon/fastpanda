@@ -11,7 +11,7 @@ namespace ObjectClass.Objects
         public string Name { get; set; }
         public long FacultyId { get; set; }
         [ForeignKey("FacultyId")]
-        public virtual Faculty Faculty { get; set; }
+        public Faculty Faculty { get; set; }
         public IEnumerable<Course> Course { get; set; }
     }
 }

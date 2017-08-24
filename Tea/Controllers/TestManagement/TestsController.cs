@@ -13,7 +13,7 @@ namespace Tea.Controllers.TestManagement
 {
     public class TestsController : Controller
     {
-        private TestDataBaseConnection db = new TestDataBaseConnection();
+        private FacultyDataBaseConnection db = new FacultyDataBaseConnection();
 
         // GET: Tests
         public ActionResult Index()

@@ -13,7 +13,7 @@ namespace Tea.Controllers.CourseManagement
 {
     public class CoursesController : Controller
     {
-        private CourseDataBaseConnection db = new CourseDataBaseConnection();
+        private FacultyDataBaseConnection db = new FacultyDataBaseConnection();
 
         // GET: Courses
         public ActionResult Index()

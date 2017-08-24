@@ -19,7 +19,7 @@ namespace Tea.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        private readonly UserDataBaseConnection db  = new UserDataBaseConnection();
+        private readonly FacultyDataBaseConnection db  = new FacultyDataBaseConnection();
         public AccountController()
         {
         }

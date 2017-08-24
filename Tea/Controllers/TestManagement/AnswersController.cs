@@ -11,7 +11,7 @@ namespace Tea.Controllers.TestManagement
 {
     public class AnswersController : Controller
     {
-        private readonly AnswerDataBaseConnection db = new AnswerDataBaseConnection();
+        private readonly FacultyDataBaseConnection db = new FacultyDataBaseConnection();
 
         // GET: Answers
         public ActionResult Index()

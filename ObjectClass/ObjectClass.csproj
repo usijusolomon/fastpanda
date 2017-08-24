@@ -51,7 +51,9 @@
     <Compile Include="Objects\Department.cs" />
     <Compile Include="Objects\Faculty.cs" />
     <Compile Include="Objects\Level.cs" />
+    <Compile Include="Objects\Student.cs" />
     <Compile Include="Objects\Test.cs" />
+    <Compile Include="Objects\Transport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Objects\Question.cs" />
     <Compile Include="Objects\User.cs" />

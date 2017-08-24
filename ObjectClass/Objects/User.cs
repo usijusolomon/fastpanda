@@ -38,7 +38,9 @@ namespace ObjectClass.Objects
         public long? FacultyId { get; set; }
         [ForeignKey("FacultyId")]
         public Faculty Faculty { get; set; }
-
+        public long StudentId { get; set; }
+        [ForeignKey("StudentId")]
+        public Student Student { get; set; }
 
     }
 }

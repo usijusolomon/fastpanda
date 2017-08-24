@@ -10,12 +10,27 @@ using DataBase.DataContext;
 using ObjectClass.Encryption;
 using ObjectClass.Enums;
 using ObjectClass.Objects;
+using Tea.Models;
 
 namespace Tea.Controllers.UserManagement
 {
     public class UsersController : Controller
     {
-        private UserDataBaseConnection db = new UserDataBaseConnection();
+        private FacultyDataBaseConnection db = new FacultyDataBaseConnection();
+
+        public ActionResult CreateStudent(User user )
+        {
+            var student = new Student();
+            student.DepartmentId = user.DepartmentId;
+            student.FacultyId = user.FacultyId;
+
+            db.Student.Add(student);
+            db.SaveChanges();
+
+            db.Users.Add(user);
+            db.SaveChanges();
+            return View();
+        }
 
         // GET: Users
         public ActionResult Index()

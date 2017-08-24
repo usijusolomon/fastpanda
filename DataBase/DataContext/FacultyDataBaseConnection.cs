@@ -19,6 +19,7 @@ namespace DataBase.DataContext
         public virtual DbSet<Answer> Answers { get; set; }
         public virtual DbSet<Test> Tests { get; set; }
         public virtual DbSet<CandidateTest> CandidateTests { get; set; }
+        public virtual DbSet<Student> Student { get; set; }
 
 
     }
